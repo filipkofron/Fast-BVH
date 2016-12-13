@@ -21,13 +21,13 @@ void BBox::expandToInclude(const BBox& b) {
 
 uint32_t BBox::maxDimension() const {
   uint32_t result = 0;
-  if(extent.y > extent.x) result = 1;
-  if(extent.z > extent.y) result = 2;
+  if(extent._data.y > extent._data.x) result = 1;
+  if(extent._data.z > extent._data.y) result = 2;
   return result;
 }
 
 float BBox::surfaceArea() const {
-  return 2.f*( extent.x*extent.z + extent.x*extent.y + extent.y*extent.z );
+  return 2.f*( extent._data.x*extent._data.z + extent._data.x*extent._data.y + extent._data.y*extent._data.z );
 }
 
 // http://www.flipcode.com/archives/SSE_RayBox_Intersection_Test.shtml
@@ -43,7 +43,9 @@ float BBox::surfaceArea() const {
 #define rotatelps(ps)		_mm_shuffle_ps((ps),(ps), 0x39)	// a,b,c,d -> b,c,d,a
 #define muxhps(low,high)	_mm_movehl_ps((low),(high))	// low{a,b,c,d}|high{e,f,g,h} = {c,d,g,h}
 static const float flt_plus_inf = -logf(0);	// let's keep C and C++ compilers happy.
-static const float __attribute__((aligned(16)))
+
+ALIGNED_(16)
+static const float 
   ps_cst_plus_inf[4] = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf,  flt_plus_inf },
   ps_cst_minus_inf[4] = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf };
 bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {

@@ -3,6 +3,14 @@
 #include "Log.h"
 #include "Stopwatch.h"
 
+#ifdef near
+#undef near
+#endif
+
+#ifdef far
+#undef far
+#endif
+
 //! Node for storing state information during traversal.
 struct BVHTraversal {
   uint32_t i; // Node
