@@ -28,7 +28,7 @@ struct Vector3 {
   Data _data;
 
   Vector3() { }
-  Vector3(float x, float y, float z, float w = 0.f) { _data.m128 = _mm_set_ps(_data.w, _data.z, _data.y, _data.x); }
+  Vector3(float x, float y, float z, float w = 0.f) { _data.m128 = _mm_set_ps(x, y, z, w); }
   Vector3(const __m128& m128) { _data.m128 = m128; }
 
   Vector3 operator+(const Vector3& b) const { return _mm_add_ps(_data.m128, b._data.m128); }
