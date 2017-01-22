@@ -22,12 +22,12 @@ Vector3 randVector3() {
 int main(int argc, char **argv) {
 
 	// Create a million spheres packed in the space of a cube
-	const unsigned int N = 1000000;
+	const unsigned int N = 10;
 	vector<BVHObject*> objects;
 	objects.reserve(N);
 	printf("Constructing %d spheres...\n", N);
 	for (size_t i = 0; i < N; ++i) {
-		objects.push_back(new Sphere(randVector3(), .005f));
+		objects.push_back(new Sphere(randVector3(), .3f));
 	}
 
 	// Compute a BVH for this object set

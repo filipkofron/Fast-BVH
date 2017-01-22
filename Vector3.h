@@ -22,6 +22,7 @@ struct Vector3 {
 	Vector3() { }
 	Vector3(float x, float y, float z, float w = 0.f) : m128(_mm_set_ps(w, z, y, x)) { }
 	Vector3(const __m128& m128) : m128(m128) { }
+  Vector3(const Vector3& src) : m128(src.m128) { }
 
 	__forceinline Vector3 operator+(const Vector3& b) const { return _mm_add_ps(m128, b.m128); }
 	__forceinline Vector3 operator-(const Vector3& b) const { return _mm_sub_ps(m128, b.m128); }
